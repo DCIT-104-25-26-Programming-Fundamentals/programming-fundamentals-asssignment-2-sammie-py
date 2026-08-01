@@ -80,3 +80,101 @@
 #include <string>
 using namespace std;
 
+
+// =============================================================================
+// FUNCTION PROTOTYPES
+// =============================================================================
+void addTask(vector<string>& tasks);
+void viewTasks(const vector<string>& tasks);
+void deleteTask(vector<string>& tasks);
+
+// =============================================================================
+// MAIN MENU
+// =============================================================================
+int main() {
+    vector<string> tasks; // dynamic list to store tasks
+    int choice;
+
+    do {
+        cout << "\n============================" << endl;
+        cout << " TO-DO LIST MENU" << endl;
+        cout << "============================" << endl;
+        cout << "1. Add task" << endl;
+        cout << "2. View tasks" << endl;
+        cout << "3. Delete task" << endl;
+        cout << "4. Quit" << endl;
+        cout << "Enter your choice (1-4): ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                addTask(tasks);
+                break;
+            case 2:
+                viewTasks(tasks);
+                break;
+            case 3:
+                deleteTask(tasks);
+                break;
+            case 4:
+                cout << "Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please enter 1-4." << endl;
+        }
+    } while(choice!= 4);
+
+    return 0;
+}
+
+// =============================================================================
+// FUNCTION DEFINITIONS
+// =============================================================================
+
+// 1. ADD A TASK
+void addTask(vector<string>& tasks) {
+    string task;
+    cout << "Enter task: ";
+    cin.ignore(); // clear the newline left by cin
+    getline(cin, task);
+
+    tasks.push_back(task);
+    cout << "Task added: \"" << task << "\"" << endl;
+}
+
+// 2. VIEW ALL TASKS
+void viewTasks(const vector<string>& tasks) {
+    if(tasks.empty()) {
+        cout << "Your task list is empty. Add some tasks!" << endl;
+        return;
+    }
+
+    cout << "Your Tasks:" << endl;
+    for(int i = 0; i < tasks.size(); i++) {
+        cout << i + 1 << ". " << tasks[i] << endl;
+    }
+}
+
+// 3. DELETE A TASK
+void deleteTask(vector<string>& tasks) {
+    if(tasks.empty()) {
+        cout << "No tasks to delete." << endl;
+        return;
+    }
+
+    // Show tasks first
+    viewTasks(tasks);
+
+    int taskNum;
+    cout << "Enter task number to delete: ";
+    cin >> taskNum;
+
+    // Check if valid
+    if(taskNum < 1 || taskNum > tasks.size()) {
+        cout << "Error: Invalid task number." << endl;
+    } else {
+        string removedTask = tasks[taskNum - 1]; // -1 because vector starts at 0
+        tasks.erase(tasks.begin() + taskNum - 1);
+        cout << "Task \"" << removedTask << "\" has been removed." << endl;
+    }
+}

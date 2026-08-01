@@ -68,8 +68,144 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 using namespace std;
 
+// Function prototypes
+void showMenu();
+double add(double a, double b);
+double subtract(double a, double b);
+double multiply(double a, double b);
+double divide(double a, double b);
+int modulo(int a, int b);
+double power(double base, double exponent);
+
+int main() {
+    int choice;
+    double num1, num2;
+    int intNum1, intNum2;
+    
+    // Set precision for output
+    cout << fixed << setprecision(2);
+    
+    do {
+        showMenu();
+        cin >> choice;
+        
+        // Handle invalid menu choice
+        if (choice < 1 || choice > 7) {
+            cout << "Invalid choice. Please enter a number between 1 and 7.\n\n";
+            continue;
+        }
+        
+        // Quit option
+        if (choice == 7) {
+            cout << "Goodbye!\n";
+            break;
+        }
+        
+        // Get numbers for operations that need them
+        if (choice >= 1 && choice <= 6) {
+            cout << "Enter first number: ";
+            cin >> num1;
+            cout << "Enter second number: ";
+            cin >> num2;
+            
+            // Store integer versions for modulus
+            intNum1 = static_cast<int>(num1);
+            intNum2 = static_cast<int>(num2);
+        }
+        
+        // Perform the selected operation
+        switch (choice) {
+            case 1:
+                cout << "Result: " << num1 << " + " << num2 << " = " 
+                     << add(num1, num2) << "\n\n";
+                break;
+                
+            case 2:
+                cout << "Result: " << num1 << " - " << num2 << " = " 
+                     << subtract(num1, num2) << "\n\n";
+                break;
+                
+            case 3:
+                cout << "Result: " << num1 << " * " << num2 << " = " 
+                     << multiply(num1, num2) << "\n\n";
+                break;
+                
+            case 4:
+                if (num2 == 0) {
+                    cout << "Error: Cannot divide by zero.\n\n";
+                } else {
+                    cout << "Result: " << num1 << " / " << num2 << " = " 
+                         << divide(num1, num2) << "\n\n";
+                }
+                break;
+                
+            case 5:
+                if (intNum2 == 0) {
+                    cout << "Error: Cannot calculate modulus with zero.\n\n";
+                } else {
+                    cout << "Result: " << intNum1 << " % " << intNum2 << " = " 
+                         << modulo(intNum1, intNum2) << "\n\n";
+                }
+                break;
+                
+            case 6:
+                cout << "Result: " << num1 << " ^ " << num2 << " = " 
+                     << power(num1, num2) << "\n\n";
+                break;
+        }
+        
+    } while (choice != 7);
+    
+    return 0;
+}
+
+// Function to display the menu
+void showMenu() {
+    cout << "============================\n";
+    cout << "     SIMPLE CALCULATOR\n";
+    cout << "============================\n";
+    cout << "1. Addition\n";
+    cout << "2. Subtraction\n";
+    cout << "3. Multiplication\n";
+    cout << "4. Division\n";
+    cout << "5. Modulus\n";
+    cout << "6. Exponentiation\n";
+    cout << "7. Quit\n";
+    cout << "Select an operation (1-7): ";
+}
+
+// Addition function
+double add(double a, double b) {
+    return a + b;
+}
+
+// Subtraction function
+double subtract(double a, double b) {
+    return a - b;
+}
+
+// Multiplication function
+double multiply(double a, double b) {
+    return a * b;
+}
+
+// Division function
+double divide(double a, double b) {
+    return a / b;
+}
+
+// Modulus function
+int modulo(int a, int b) {
+    return a % b;
+}
+
+// Exponentiation function
+double power(double base, double exponent) {
+    return pow(base, exponent);
+}
